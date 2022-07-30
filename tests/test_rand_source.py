@@ -1,6 +1,9 @@
+import logging
 import random
 import time
 from unittest.mock import MagicMock
+
+import paho.mqtt.client as mqtt
 
 from rand_source import RandomSource
 
@@ -43,6 +46,25 @@ def test_pubval_publishes_to_a_user_provided_topic(monkeypatch):
     rs.publish_value()
 
     cli_mock.publish.assert_called_with("new/topic", 83)
+
+
+def test_pubval_logs_error_on_publish_failure(monkeypatch):
+    """If a value fails to be published, a message should be logged."""
+    rnd_mock = MagicMock(return_value=11)
+    monkeypatch.setattr(random, "randint", rnd_mock)
+
+    log_mock = MagicMock()
+    monkeypatch.setattr(logging, "error", log_mock)
+
+    cli_mock = MockClient()
+    res = mqtt.MQTTMessageInfo(1234)
+    res.rc = mqtt.MQTT_ERR_CONN_LOST
+    cli_mock.publish.return_value = res
+
+    rs = RandomSource(client=cli_mock)
+    rs.publish_value()
+
+    log_mock.assert_called_with("Message 1234 not sent: The connection was lost.")
 
 
 def test_wait_interval_gets_random_time_in_correct_range(monkeypatch):
