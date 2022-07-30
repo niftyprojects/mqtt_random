@@ -31,6 +31,18 @@ class RandomSource:
         logging.debug(f"Sleeping for {val} seconds.")
         time.sleep(val)
 
+    def run(self):
+        """Publish values until interrupted.
+
+        KeyboardInterrupt or SIGINT will break out of the loop."""
+        try:
+            logging.info("RandomSource started.")
+            while True:
+                self.publish_value()
+                self.wait_interval()
+        except KeyboardInterrupt:
+            logging.info("RandomSource stopped.")
+
 
 LOG_LEVEL = {
     "debug": logging.DEBUG,

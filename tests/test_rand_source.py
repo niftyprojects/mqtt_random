@@ -68,3 +68,17 @@ def test_wait_interval_sleeps_for_the_time_period(monkeypatch):
     rs.wait_interval()
 
     sleep_mock.assert_called_with(17)
+
+
+def test_run_publishes_and_waits_until_keyboard_error():
+    """Run should call publish_value and wait_interval repeatiatly until KeyboardError
+    is received."""
+
+    rs = RandomSource(MockClient())
+    rs.publish_value = MagicMock()
+    rs.wait_interval = MagicMock(side_effect=[None, None, KeyboardInterrupt()])
+
+    rs.run()
+
+    assert rs.publish_value.call_count == 3
+    assert rs.wait_interval.call_count == 3
