@@ -1,3 +1,15 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mqtt_random"
+description = "Generates random numbers and pushes them to a MQTT broker."
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "BSD 3-Clause License"}
+version = "1.0.0"
+
 [tool.flake8]
 ignore = "E203,E266,H106,H904,E133"
 max-complexity = 25
