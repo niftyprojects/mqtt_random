@@ -5,7 +5,7 @@ from unittest.mock import MagicMock
 
 import paho.mqtt.client as mqtt
 
-from rand_source import RandomSource
+from mqtt_random import RandomSource
 
 
 class MockClient:
