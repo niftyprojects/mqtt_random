@@ -47,28 +47,3 @@ class RandomSource:
                 self.wait_interval()
         except KeyboardInterrupt:
             logging.info("RandomSource stopped.")
-
-
-LOG_LEVEL = {
-    "debug": logging.DEBUG,
-    "warn": logging.WARN,
-    "error": logging.ERROR,
-    "info": logging.INFO,
-}
-
-
-if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser(
-        description="Publishes random numbers to MQTT broker."
-    )
-    parser.add_argument(
-        "--log_level",
-        help="Set the logging level. Default error",
-        choices=LOG_LEVEL.keys(),
-        default="warn",
-    )
-    args = parser.parse_args()
-
-    logging.basicConfig(level=LOG_LEVEL[args.log_level])

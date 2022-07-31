@@ -10,6 +10,9 @@ requires-python = ">=3.7"
 license = {text = "BSD 3-Clause License"}
 version = "1.0.0"
 
+[project.scripts]
+mqtt_random = "mqtt_random.mqtt_random:main"
+
 [tool.flake8]
 ignore = "E203,E266,H106,H904,E133"
 max-complexity = 25
