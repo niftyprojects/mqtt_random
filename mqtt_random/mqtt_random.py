@@ -1,8 +1,8 @@
 import argparse
 import logging
 
-from connection import mqtt_client
-from source import RandomSource
+from mqtt_random.connection import mqtt_client
+from mqtt_random.source import RandomSource
 
 LOG_LEVEL = {
     "debug": logging.DEBUG,

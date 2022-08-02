@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 import paho.mqtt.client as mqtt
 import pytest
 
-from mqtt_random import mqtt_client
+from mqtt_random.connection import mqtt_client
 
 
 class MockClient:
